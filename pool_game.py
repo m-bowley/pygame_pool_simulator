@@ -130,6 +130,7 @@ def update():
         for b in balls:
             # Move each ball
             b.move()
+            print(b.movement)
             if abs(b.movement[0]) + abs(b.movement[1]) > 0:
                 shot = True
             # Check for collisions
@@ -142,16 +143,16 @@ def update():
                 if b != cue_ball:
                     b.movement[0] = (pockets[in_pocket[0]].x - b.actor.x) / 20
                     b.movement[1] = (pockets[in_pocket[0]].y - b.actor.y) / 20
-                    b.pocket = pockets[in_pocket[0]]
+                    b.pocketed = True
                     balls_pocketed.append(b)
                 else:
                     b.x = WIDTH//2
                     b.y = HEIGHT//2 
-for col in collisions:
-    col[0].collide(col[1])
-if shot == False:
-    for b in balls_pocketed:
-        balls.remove(b)
+        for col in collisions:
+            col[0].collide(col[1])
+        if shot == False:
+            for b in balls_pocketed:
+                balls.remove(b)
 
 
 def draw():
