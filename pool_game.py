@@ -132,21 +132,21 @@ def update():
             b.move()
             if abs(b.movement[0]) + abs(b.movement[1]) > 0:
                 shot = True
-    # Check for collisions
-    for other in balls:
-        if other != b and b.actor.colliderect(other.actor):
-            collisions.append((b, other))
-    # Did it sink in the hole?
-    in_pocket = b.actor.collidelistall(pockets)
-    if len(in_pocket) > 0 and b.pocketed == False:
-        if b != cue_ball:
-            b.movement[0] = (pockets[in_pocket[0]].x - b.actor.x) / 20
-            b.movement[1] = (pockets[in_pocket[0]].y - b.actor.y) / 20
-            b.pocket = pockets[in_pocket[0]]
-            balls_pocketed.append(b)
-        else:
-            b.x = WIDTH//2
-            b.y = HEIGHT//2 
+            # Check for collisions
+            for other in balls:
+                if other != b and b.actor.colliderect(other.actor):
+                    collisions.append((b, other))
+            # Did it sink in the hole?
+            in_pocket = b.actor.collidelistall(pockets)
+            if len(in_pocket) > 0 and b.pocketed == False:
+                if b != cue_ball:
+                    b.movement[0] = (pockets[in_pocket[0]].x - b.actor.x) / 20
+                    b.movement[1] = (pockets[in_pocket[0]].y - b.actor.y) / 20
+                    b.pocket = pockets[in_pocket[0]]
+                    balls_pocketed.append(b)
+                else:
+                    b.x = WIDTH//2
+                    b.y = HEIGHT//2 
 for col in collisions:
     col[0].collide(col[1])
 if shot == False:
